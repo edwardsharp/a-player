@@ -1,0 +1,108 @@
+body{
+  background-color: black;
+  color: white;
+}
+
+.player-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.sidebar {
+  width: 360px;
+  height: 360px;
+  background-color: #000;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+
+@media screen and (max-width: 1080px) {
+  .sidebar {
+    width: 640px;
+    margin-bottom: 20px;
+  }
+}
+
+.sidebar h3 {
+  padding: 20px;
+  margin: 0;
+  font-size: 14px;
+  color: #fff;
+  text-align: left;
+}
+
+.searchbox {
+   margin: 10px 20px;
+   display: block;
+   position: relative;
+}
+
+.searchbox input {
+  line-height: 20px;
+  font-size: 16px;
+  color: #000;
+  width: 100%;
+  padding: 5px 20px 5px 30px;
+  background: #fff url('//s3.amazonaws.com/demo.jwplayer.com/interactive-transcript/search.png') no-repeat top left;
+  border-radius: 3px;
+  border: none;
+}
+
+.searchbox .match {
+  position: absolute;
+  right: 10px;
+  /* top: 20px; */
+  line-height: 20px;
+  font-size: 14px;
+
+}
+
+.transcript {
+  padding: 20px;
+  max-height: 80%;
+  overflow: auto;
+}
+
+.transcript p {
+  font-size: 15px;
+  overflow: hidden;
+  text-align: left;
+  color: #fff;
+  line-height: 20px;
+}
+
+.transcript span {
+  display: inline;
+  padding: 4px 2px;
+  line-height: 24px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.transcript span.current {
+  background: #ff6600;
+  color: #000;
+}
+
+.transcript span:not(.current):hover {
+  color: #ff6600;
+}
+
+.transcript span em {
+  font-style: normal;
+  background: #666;
+  color: #FFF;
+}
+
+.transcript span em.current {
+  background: #ff0046;
+}
+
+.transcript h4 {
+  margin: 25px 0 15px 0;
+  text-align: left;
+  color: #fff;
+  font-weight: bold;
+}
