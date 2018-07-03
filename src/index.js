@@ -19,6 +19,7 @@ class APlayer extends Slim {
   matches = [];
   query = "";
   cycle = -1;
+  jwplayer;
   
   static get observedAttributes() {
     return ['autostart'];
@@ -37,11 +38,15 @@ class APlayer extends Slim {
     // this.myDiv.innerText = "Custom Elements!"
     console.log('this.autostart', this.autostart);
     this.initJwPlayer();
+
+    // setTimeout(() => {
+    //   console.log('ummmmmm',this.querySelector('#caption0'))
+    // }, 2000);
   } 
 
   initJwPlayer(){
     // Setup JW Player
-    jwplayer(this.player).setup({
+    this.jwplayer = jwplayer(this.player).setup({
         file: '//content.jwplatform.com/manifests/3p683El7.m3u8',
         image: '//content.jwplatform.com/thumbs/3p683El7-640.jpg',
         tracks: [
@@ -66,7 +71,7 @@ class APlayer extends Slim {
     // );
 
     // Load chapters / captions
-    jwplayer().on('ready', () => {
+    this.jwplayer.on('ready', () => {
       var r = new XMLHttpRequest();
       r.onreadystatechange = () => {
         if (r.readyState == 4 && r.status == 200) {
@@ -84,14 +89,14 @@ class APlayer extends Slim {
     });
 
     // Highlight current caption and chapter
-    jwplayer().on('time', (e) => {
+    this.jwplayer.on('time', (e) => {
       var p = e.position;
       for(var j=0; j<this.captions.length; j++) {
         if(this.captions[j].begin < p && this.captions[j].end > p) {
           if(j != this.caption) {
-            var c = document.getElementById('caption'+j);
+            var c = this.querySelector('#caption'+j);
             if(this.caption > -1) {
-              document.getElementById('caption'+this.caption).className = "";
+              this.querySelector('#caption'+this.caption).className = "";
             }
             c.className = "current";
             if(this.query == "") {
@@ -108,7 +113,7 @@ class APlayer extends Slim {
     this.transcript.addEventListener("click", (e) => {
       if(e.target.id.indexOf("caption") == 0) { 
         var i = Number(e.target.id.replace("caption",""));
-        jwplayer().seek(this.captions[i].begin);
+        this.jwplayer.seek(this.captions[i].begin);
       }
     });
     this.search.addEventListener('focus', (e) => {
@@ -189,7 +194,7 @@ class APlayer extends Slim {
     for(var i=0; i<this.captions.length; i++) {
       var m = cthis.aptions[i].text.toLowerCase().indexOf(q);
       if( m > -1) {
-        document.getElementById('caption'+i).innerHTML = 
+        this.querySelector('#caption'+i).innerHTML = 
           this.captions[i].text.substr(0,m) + "<em>" + 
           this.captions[i].text.substr(m,q.length) + "</em>" + 
           this.captions[i].text.substr(m+q.length);
@@ -205,10 +210,10 @@ class APlayer extends Slim {
 
   cycleSearch(i) {
     if(this.cycle > -1) {
-      var o = document.getElementById('caption'+this.matches[this.cycle]);
+      var o = this.querySelector('#caption'+this.matches[this.cycle]);
       o.getElementsByTagName("em")[0].className = "";
     }
-    var c = document.getElementById('caption'+this.matches[i]);
+    var c = this.querySelector('#caption'+this.matches[i]);
     c.getElementsByTagName("em")[0].className = "current";
     this.match.innerHTML = (i+1) + " of " + this.matches.length;
     this.transcript.scrollTop = c.offsetTop - this.transcript.offsetTop - 40;
@@ -218,7 +223,7 @@ class APlayer extends Slim {
   resetSearch() {
     if(this.matches.length) {
       for(var i=0; i<this.captions.length; i++) {
-        document.getElementById('caption'+i).innerHTML = this.captions[i].text;
+        this.querySelector('#caption'+i).innerHTML = this.captions[i].text;
       }
     }
     this.query = "";
