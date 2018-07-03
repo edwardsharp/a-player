@@ -20,28 +20,28 @@ class APlayer extends Slim {
   query = "";
   cycle = -1;
 
+ 
 
   // var transcript = document.getElementById('transcript');
 // var search = document.getElementById('search');
 // var match = document.getElementById('match');
-
-  // native API
+  
   static get observedAttributes() {
-    return ['hello'];
+    return ['autostart'];
   }
 
-  // bind attributes to properties
-  // when 'hello' attribute changed - it is reflected to the property, and the component alters the relevant text node.
   get autoBoundAttributes() {
-    return ['hello'];
+    return ['autostart'];
   }
 
   onBeforeCreated() {
+    //setup default attrz
+    this.autostart = this.autostart || 'false';
   }
 
   onRender() {
     // this.myDiv.innerText = "Custom Elements!"
-    console.log('this.hello', this.hello);
+    console.log('this.autostart', this.autostart);
     this.initJwPlayer();
   } 
 
@@ -58,7 +58,8 @@ class APlayer extends Slim {
         ],
         displaytitle: false,
         width: 640,
-        height: 360
+        height: 360,
+        autostart: this.autostart
     });
 
     jwplayer().addButton(
