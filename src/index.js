@@ -123,7 +123,7 @@ class APlayer extends Slim {
       if(e.keyCode == 27) {
         this.resetSearch();
       } else if (e.keyCode == 13) {
-        var q = this.value.toLowerCase();
+        var q = e.target.value.toLowerCase();
         if(q.length > 0) {
           if (q == this.query) {
             if(this.cycle >= this.matches.length - 1) {
@@ -192,7 +192,7 @@ class APlayer extends Slim {
     this.matches = [];
     this.query = q;
     for(var i=0; i<this.captions.length; i++) {
-      var m = cthis.aptions[i].text.toLowerCase().indexOf(q);
+      var m = this.captions[i].text.toLowerCase().indexOf(q);
       if( m > -1) {
         this.querySelector('#caption'+i).innerHTML = 
           this.captions[i].text.substr(0,m) + "<em>" + 
