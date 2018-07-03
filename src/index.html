@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <!-- jw player -->
-    <script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js"></script>
-    <!-- browser polyfills -->
-    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
-    <title>a-player</title>
+  <meta charset="UTF-8">
+  <!-- jw player -->
+  <script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js"></script>
+  <!-- browser polyfills -->
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
+  <title>a-player DEMO</title>
 </head>
 <body>
-    <a-player autostart="false"></a-player>
-    <hr>
-    <a-player></a-player>
+  <a-player autostart="false"></a-player>
+  <hr>
+  <a-player></a-player>
+
+	<style type="text/css">
+	.transcript span.current {
+	  background: green;
+	}
+	.transcript span:not(.current):hover {
+	  color: green;
+	}
+	</style>
 </body>
-</html>
+</html

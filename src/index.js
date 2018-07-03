@@ -19,12 +19,6 @@ class APlayer extends Slim {
   matches = [];
   query = "";
   cycle = -1;
-
- 
-
-  // var transcript = document.getElementById('transcript');
-// var search = document.getElementById('search');
-// var match = document.getElementById('match');
   
   static get observedAttributes() {
     return ['autostart'];
@@ -51,8 +45,8 @@ class APlayer extends Slim {
         file: '//content.jwplatform.com/manifests/3p683El7.m3u8',
         image: '//content.jwplatform.com/thumbs/3p683El7-640.jpg',
         tracks: [
-          { file: "https://raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt", kind: "chapters" },
-          { file: "https://raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt", kind: "captions" },
+          { file: "//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt", kind: "chapters" },
+          { file: "//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt", kind: "captions" },
           { file: "//content.jwplatform.com/strips/3p683El7-120.vtt", kind: "thumbnails" }
 
         ],
@@ -62,14 +56,14 @@ class APlayer extends Slim {
         autostart: this.autostart
     });
 
-    jwplayer().addButton(
-      "https://raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/download.png",
-      "Download Slides",
-      function() {
-        window.location.href = "https://raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/state-html5-video.pdf";
-      },
-      "download"
-    );
+    // jwplayer().addButton(
+    //   "https://raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/download.png",
+    //   "Download Slides",
+    //   function() {
+    //     window.location.href = "https://raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/state-html5-video.pdf";
+    //   },
+    //   "download"
+    // );
 
     // Load chapters / captions
     jwplayer().on('ready', () => {
@@ -85,7 +79,7 @@ class APlayer extends Slim {
           this.loadCaptions();
         }
       };
-      r.open('GET','https://raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt',true);
+      r.open('GET','//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt',true);
       r.send();
     });
 
@@ -164,7 +158,7 @@ class APlayer extends Slim {
         this.transcript.innerHTML = h + "</p>";
       }
     };
-    r.open('GET','https://raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt',true);
+    r.open('GET','//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt',true);
     r.send();
   }
 
