@@ -6,13 +6,22 @@
   <script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js"></script>
   <!-- browser polyfills -->
   <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/@edwardsharp/a-player@0.0.1/dist/main.bundle.js"></script>
+  <script src="https://unpkg.com/@edwardsharp/a-player@0.0.1/dist/main.bundle.js"></script>
   <style type="text/css">
-	html, body{
+	body{
 		margin: 0;
 		padding: 0;
+		font-family: sans-serif;
 	}
 
+	h1,h2,b,a {
+		margin: 25px;
+	}
+	footer{
+		margin-top: 5em;
+		text-align: center;
+		width: 100vw;
+	}
 	/* flex grid for <a-player> */
 	.flex-grid {
 	  display: flex;
@@ -39,6 +48,51 @@
   <title>a-player DEMO</title>
 </head>
 <body>
+	<h1>@edwardsharp/a-player</h1>
+	<a href="https://github.com/edwardsharp/a-player">github.com/edwardsharp/a-player</a>
+
+	<h2>Usage</h2>
+
+	<b>include these:</b>
+
+	<pre>
+	&lt;script src=&quot;https://content.jwplatform.com/libraries/IDzF9Zmk.js&quot;&gt;&lt;/script&gt;
+	&lt;script src=&quot;https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js&quot;&gt;&lt;/script&gt;
+	&lt;script src=&quot;https://unpkg.com/@edwardsharp/a-player@0.0.1/dist/main.bundle.js&quot;&gt;&lt;/script&gt;
+	</pre>
+
+	<b>override some styles, if you want. make sure to include these after <code>&lt;script src=&quot;main.bundle.js&quot;&gt;&lt;/script&gt;</code>.</b>
+
+	<pre>
+	&lt;style&gt;
+	  .transcript span.current {
+	    background: green;
+	  }
+	  .transcript span:not(.current):hover {
+	    color: green;
+	  }
+	&lt;/style&gt;
+	</pre>
+
+	<b>and use like so:</b>
+	<pre>
+	&lt;a-player 
+	  autoplay=&quot;false&quot;
+	  height=&quot;192&quot;
+	  width=&quot;384&quot;
+	  file=&quot;//content.jwplatform.com/manifests/3p683El7.m3u8&quot;
+	  image=&quot;//content.jwplatform.com/thumbs/3p683El7-640.jpg&quot;
+	  chapters-file=&quot;//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt&quot;
+	  captions-file=&quot;//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt&quot;
+	  thumbnails-file=&quot;//content.jwplatform.com/strips/3p683El7-120.vtt&quot;
+	  captions-color=&quot;#000&quot;
+	  captions-bg=&quot;#ff0404&quot;
+	  captions-bg-opacity=&quot;100&quot;
+	  captions-font-size=&quot;25&quot;
+	&gt;&lt;/a-player&gt;
+	</pre>
+
+	<h1>Demo</h1>
 	<div class="flex-grid">
 	  <a-player 
 	  	autoplay="false"
@@ -69,5 +123,6 @@
 	  	width="384"></a-player>
 
 	</div>
+	<footer>made with ♥ in NYC</footer>
 </body>
 </html
