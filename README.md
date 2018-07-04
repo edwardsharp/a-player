@@ -43,7 +43,7 @@ and use like so:
   thumbnails-file="//content.jwplatform.com/strips/3p683El7-120.vtt"
   captions-color="#000"
   captions-bg="#ff0404"
-  captions-bg-opacity="100",
+  captions-bg-opacity="100"
   captions-font-size="25"
 ></a-player>
 ```
