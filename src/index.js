@@ -10,9 +10,7 @@ const aTemplate = require('./a-player.html');
 
 @tag('a-player')
 @template(aTemplate)
-// @useShadow(true)
 class APlayer extends Slim {
-
   chapters = [];
   captions = [];
   caption = -1;
@@ -20,10 +18,10 @@ class APlayer extends Slim {
   query = "";
   cycle = -1;
   showSidebar = false;
+  //dark-color
   transcriptsOff = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAdUlEQVQ4y2NgGKxAgYGB4T8ReAEuA5io5RIWKP2CgYHBEUncg4GBoZyBgeElAwNDBJL4C0IG/WBgYDiA5lVkcQ0GBgYJJIwMTkDVYQUJ0DB5AOUvwBNuClQNI2JdREicei4axgYx4hCXgKadH9B0Qkh8FBABAOnAJRVKrOykAAAAAElFTkSuQmCC";
   //white-color
   transcriptsOn = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAY0lEQVQ4y2NgGJTg////Cv+JAPjMYKK2izjQ+B1QR7wg1gwmBgYGBkZGxh9o4jeg9A9iHcFEgqtxhZsEVcOIhViFjIyMjDCXMTAwPGRkZFSgSawNY4OGMWBETrlkGQBNX1QDAMv3XE78oP9+AAAAAElFTkSuQmCC";
-
   jwplayer;
   
   static get observedAttributes() {
@@ -59,7 +57,7 @@ class APlayer extends Slim {
   }
 
   onBeforeCreated() {
-    //setup default attrz
+    //set default values
     this.autostart = this.autostart || 'false';
     this.width = this.width || '320';
     this.height = this.height || '180';
@@ -69,7 +67,6 @@ class APlayer extends Slim {
   }
 
   onRender() {
-    // this.myDiv.innerText = "Custom Elements!"
     console.log('this.autostart', this.autostart);
     this.initJwPlayer();
   } 
@@ -83,7 +80,6 @@ class APlayer extends Slim {
           { file: this.chaptersfile, kind: "chapters" },
           { file: this.captionsfile, kind: "captions" },
           { file: this.thumbnailsfile, kind: "thumbnails" }
-
         ],
         displaytitle: this.displaytitle,
         width: this.width,
@@ -283,7 +279,7 @@ class APlayer extends Slim {
     }
     this.query = "";
     this.matches = [];
-    this.match.innerHTML = "0 of 0";
+    this.match.innerHTML = "";
     this.cycle = -1;
     this.transcript.scrollTop = 0;
   }
