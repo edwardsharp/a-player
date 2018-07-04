@@ -1,5 +1,9 @@
 {
-  "name": "a-player",
+  "name": "@edwardsharp/a-player",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.1",
   "description": "Web Component for rendering videos with accessible captions (& other nifty things) via JWPlayer",
   "main": "index.js",
