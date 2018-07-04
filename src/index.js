@@ -31,12 +31,14 @@ class APlayer extends Slim {
       'height',
       'file',
       'image',
-      'displaytitle',
-      'chaptersfile',
-      'captionsfile',
-      'thumbnailsfile',
-      'captionscolor',
-      'captionsbg'
+      'display-title',
+      'chapters-file',
+      'captions-file',
+      'thumbnails-file',
+      'captions-color',
+      'captions-bg',
+      'captions-bg-opacity',
+      'captions-font-size'
     ];
   }
 
@@ -47,12 +49,14 @@ class APlayer extends Slim {
       'height',
       'file',
       'image',
-      'displaytitle',
-      'chaptersfile',
-      'captionsfile',
-      'thumbnailsfile',
-      'captionscolor',
-      'captionsbg'
+      'display-title',
+      'chapters-file',
+      'captions-file',
+      'thumbnails-file',
+      'captions-color',
+      'captions-bg',
+      'captions-bg-opacity',
+      'captions-font-size'
     ];
   }
 
@@ -61,9 +65,11 @@ class APlayer extends Slim {
     this.autostart = this.autostart || 'false';
     this.width = this.width || '320';
     this.height = this.height || '180';
-    this.displaytitle = this.displaytitle || 'false';
-    this.captionscolor = this.captionscolor || "#ffffff";
-    this.captionsbg = this.captionsbg || "#000000";
+    this.displayTitle = this.displayTitle || 'false';
+    this.captionsColor = this.captionsColor || "#ffffff";
+    this.captionsBg = this.captionsBg || "#000000";
+    this.captionsBgOpacity = this.captionsBgOpacity || '75';
+    this.captionsFontSize = this.captionsFontSize || '15';
   }
 
   onRender() {
@@ -77,23 +83,27 @@ class APlayer extends Slim {
         file: this.file,
         image: this.image,
         tracks: [
-          { file: this.chaptersfile, kind: "chapters" },
-          { file: this.captionsfile, kind: "captions" },
-          { file: this.thumbnailsfile, kind: "thumbnails" }
+          { file: this.chaptersFile, kind: "chapters" },
+          { file: this.captionsFile, kind: "captions", label: "Default" },
+          { file: this.thumbnailsFile, kind: "thumbnails" }
         ],
-        displaytitle: this.displaytitle,
+        displaytitle: this.displayTitle,
         width: this.width,
         height: this.height,
         autostart: this.autostart,
         captions: {
-          "color": this.captionscolor, 
-          "backgroundColor": this.captionsbg
+          fontSize: this.captionsFontSize,
+          color: this.captionsColor, 
+          backgroundColor: this.captionsBg,
+          backgroundOpacity: this.captionsBgOpacity
         }
     });
 
     this.sidebar.style.height = `${this.height}px`;
     this.transcript.style.height = `${this.height - 68}px`;
 
+    this.jwplayer.setCurrentCaptions(0);
+    
     this.jwplayer.addButton(
       this.transcriptsOff,
       "Toggle Transcripts",
@@ -120,7 +130,7 @@ class APlayer extends Slim {
           this.loadCaptions();
         }
       };
-      r.open('GET',this.chaptersfile,true);
+      r.open('GET',this.chaptersFile,true);
       r.send();
     });
 
@@ -199,7 +209,7 @@ class APlayer extends Slim {
         this.transcript.innerHTML = h + "</p>";
       }
     };
-    r.open('GET',this.captionsfile,true);
+    r.open('GET',this.captionsFile,true);
     r.send();
   }
 
