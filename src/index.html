@@ -9,17 +9,39 @@
   <title>a-player DEMO</title>
 </head>
 <body>
-  <a-player autostart="false"></a-player>
-  <hr>
-  <a-player></a-player>
-
+	<div class="flex-grid">
+	  <a-player autostart="false"></a-player>
+	  <a-player></a-player>
+	</div>
 	<style type="text/css">
+
+	html, body{
+		margin: 0;
+		padding: 0;
+	}
+	/* a-player style overrides */
 	.transcript span.current {
 	  background: green;
 	}
 	.transcript span:not(.current):hover {
 	  color: green;
 	}
+
+	/* flex grid for <a-player> */
+	.flex-grid {
+	  display: flex;
+	  flex-wrap: wrap;
+	}
+	a-player {
+	  flex: 1;
+	  margin: 2px;
+	}
+	@media (max-width: 250px) {
+	  .flex-grid {
+	    display: block;
+	  }
+	}
+
 	</style>
 </body>
 </html

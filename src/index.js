@@ -19,6 +19,11 @@ class APlayer extends Slim {
   matches = [];
   query = "";
   cycle = -1;
+  showSidebar = false;
+  transcriptsOff = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAdUlEQVQ4y2NgGKxAgYGB4T8ReAEuA5io5RIWKP2CgYHBEUncg4GBoZyBgeElAwNDBJL4C0IG/WBgYDiA5lVkcQ0GBgYJJIwMTkDVYQUJ0DB5AOUvwBNuClQNI2JdREicei4axgYx4hCXgKadH9B0Qkh8FBABAOnAJRVKrOykAAAAAElFTkSuQmCC";
+  //white-color
+  transcriptsOn = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAY0lEQVQ4y2NgGJTg////Cv+JAPjMYKK2izjQ+B1QR7wg1gwmBgYGBkZGxh9o4jeg9A9iHcFEgqtxhZsEVcOIhViFjIyMjDCXMTAwPGRkZFSgSawNY4OGMWBETrlkGQBNX1QDAMv3XE78oP9+AAAAAElFTkSuQmCC";
+
   jwplayer;
   
   static get observedAttributes() {
@@ -32,43 +37,52 @@ class APlayer extends Slim {
   onBeforeCreated() {
     //setup default attrz
     this.autostart = this.autostart || 'false';
+    this.width = this.width || '320';
+    this.height = this.height || '180';
+    this.file = this.file || '//content.jwplatform.com/manifests/3p683El7.m3u8';
+    this.image = this.image || '//content.jwplatform.com/thumbs/3p683El7-640.jpg';
+    this.displaytitle = this.displaytitle || 'false';
+    this.chaptersfile = this.chaptersfile || "//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt";
+    this.captionsfile = this.captionsfile || "//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt";
+    this.thumbnailsfile = this.thumbnailsfile || "//content.jwplatform.com/strips/3p683El7-120.vtt";
   }
 
   onRender() {
     // this.myDiv.innerText = "Custom Elements!"
     console.log('this.autostart', this.autostart);
     this.initJwPlayer();
-
-    // setTimeout(() => {
-    //   console.log('ummmmmm',this.querySelector('#caption0'))
-    // }, 2000);
   } 
 
   initJwPlayer(){
     // Setup JW Player
     this.jwplayer = jwplayer(this.player).setup({
-        file: '//content.jwplatform.com/manifests/3p683El7.m3u8',
-        image: '//content.jwplatform.com/thumbs/3p683El7-640.jpg',
+        file: this.file,
+        image: this.image,
         tracks: [
-          { file: "//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt", kind: "chapters" },
-          { file: "//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt", kind: "captions" },
-          { file: "//content.jwplatform.com/strips/3p683El7-120.vtt", kind: "thumbnails" }
+          { file: this.chaptersfile, kind: "chapters" },
+          { file: this.captionsfile, kind: "captions" },
+          { file: this.thumbnailsfile, kind: "thumbnails" }
 
         ],
-        displaytitle: false,
-        width: 640,
-        height: 360,
+        displaytitle: this.displaytitle,
+        width: this.width,
+        height: this.height,
         autostart: this.autostart
     });
 
-    // jwplayer().addButton(
-    //   "https://raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/download.png",
-    //   "Download Slides",
-    //   function() {
-    //     window.location.href = "https://raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/state-html5-video.pdf";
-    //   },
-    //   "download"
-    // );
+    this.sidebar.style.height = `${this.height}px`;
+    this.transcript.style.height = `${this.height - 68}px`;
+
+    this.jwplayer.addButton(
+      this.transcriptsOff,
+      "Toggle Transcripts",
+      () => {        
+        this.toggleTranscriptsBtn();
+      },
+      "toggleTranscripts"
+    );
+
+    this.sidebar.style.display = 'none';
 
     // Load chapters / captions
     this.jwplayer.on('ready', () => {
@@ -84,7 +98,7 @@ class APlayer extends Slim {
           this.loadCaptions();
         }
       };
-      r.open('GET','//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt',true);
+      r.open('GET',this.chaptersfile,true);
       r.send();
     });
 
@@ -163,8 +177,23 @@ class APlayer extends Slim {
         this.transcript.innerHTML = h + "</p>";
       }
     };
-    r.open('GET','//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt',true);
+    r.open('GET',this.captionsfile,true);
     r.send();
+  }
+
+
+  toggleTranscriptsBtn(){
+    this.jwplayer.removeButton('toggleTranscripts');
+    this.showSidebar = !this.showSidebar;
+    this.sidebar.style.display = this.showSidebar ? 'initial' : 'none';
+    this.jwplayer.addButton(
+      this.showSidebar ? this.transcriptsOn : this.transcriptsOff,
+      "Toggle Transcripts",
+      () => {        
+        this.toggleTranscriptsBtn();
+      },
+      "toggleTranscripts"
+    );
   }
 
   parse(d){
