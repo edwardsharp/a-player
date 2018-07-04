@@ -7,6 +7,23 @@
   ],
   "license": "GPL-3.0",
   "homepage": "https://github.com/edwardsharp/a-player",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "web",
+    "component",
+    "components",
+    "custom",
+    "element",
+    "slim.js",
+    "slimjs",
+    "JWPLayer",
+    "interactive",
+    "transcriptions",
+    "transcript",
+    "cc",
+    "cptions"
+  ],
   "dependencies": {
     "slimjs": "^3.1.3"
   },
