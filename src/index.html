@@ -10,21 +10,35 @@
 </head>
 <body>
 	<div class="flex-grid">
-	  <a-player autostart="false"></a-player>
-	  <a-player></a-player>
+	  <a-player 
+	  	height="192"
+	  	width="384"
+	  	file="//content.jwplatform.com/manifests/3p683El7.m3u8"
+	  	image="//content.jwplatform.com/thumbs/3p683El7-640.jpg"
+			chaptersfile="//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt"
+			captionsfile="//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt"
+			thumbnailsfile="//content.jwplatform.com/strips/3p683El7-120.vtt"
+	  ></a-player>
+	  <a-player 
+	  	height="192"
+	  	width="384"
+	  	file="//content.jwplatform.com/manifests/3p683El7.m3u8"
+	  	image="//content.jwplatform.com/thumbs/3p683El7-640.jpg"
+			chaptersfile="//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt"
+			captionsfile="//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt"
+			thumbnailsfile="//content.jwplatform.com/strips/3p683El7-120.vtt"
+	  ></a-player>
+
+	  <a-player 
+	  	height="192"
+	  	width="384"></a-player>
+
 	</div>
 	<style type="text/css">
 
 	html, body{
 		margin: 0;
 		padding: 0;
-	}
-	/* a-player style overrides */
-	.transcript span.current {
-	  background: green;
-	}
-	.transcript span:not(.current):hover {
-	  color: green;
 	}
 
 	/* flex grid for <a-player> */
@@ -42,6 +56,13 @@
 	  }
 	}
 
+	/* a-player style overrides */
+	.transcript span.current {
+	  background: green;
+	}
+	.transcript span:not(.current):hover {
+	  color: green;
+	}
 	</style>
 </body>
 </html

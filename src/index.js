@@ -27,11 +27,35 @@ class APlayer extends Slim {
   jwplayer;
   
   static get observedAttributes() {
-    return ['autostart'];
+    return [
+      'autostart',
+      'width',
+      'height',
+      'file',
+      'image',
+      'displaytitle',
+      'chaptersfile',
+      'captionsfile',
+      'thumbnailsfile',
+      'captionscolor',
+      'captionsbg'
+    ];
   }
 
   get autoBoundAttributes() {
-    return ['autostart'];
+    return [
+      'autostart',
+      'width',
+      'height',
+      'file',
+      'image',
+      'displaytitle',
+      'chaptersfile',
+      'captionsfile',
+      'thumbnailsfile',
+      'captionscolor',
+      'captionsbg'
+    ];
   }
 
   onBeforeCreated() {
@@ -39,12 +63,9 @@ class APlayer extends Slim {
     this.autostart = this.autostart || 'false';
     this.width = this.width || '320';
     this.height = this.height || '180';
-    this.file = this.file || '//content.jwplatform.com/manifests/3p683El7.m3u8';
-    this.image = this.image || '//content.jwplatform.com/thumbs/3p683El7-640.jpg';
     this.displaytitle = this.displaytitle || 'false';
-    this.chaptersfile = this.chaptersfile || "//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt";
-    this.captionsfile = this.captionsfile || "//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt";
-    this.thumbnailsfile = this.thumbnailsfile || "//content.jwplatform.com/strips/3p683El7-120.vtt";
+    this.captionscolor = this.captionscolor || "#ffffff";
+    this.captionsbg = this.captionsbg || "#000000";
   }
 
   onRender() {
@@ -67,7 +88,11 @@ class APlayer extends Slim {
         displaytitle: this.displaytitle,
         width: this.width,
         height: this.height,
-        autostart: this.autostart
+        autostart: this.autostart,
+        captions: {
+          "color": this.captionscolor, 
+          "backgroundColor": this.captionsbg
+        }
     });
 
     this.sidebar.style.height = `${this.height}px`;
@@ -82,6 +107,7 @@ class APlayer extends Slim {
       "toggleTranscripts"
     );
 
+    this.sidebar.style.maxWidth = `${this.width}px`;
     this.sidebar.style.display = 'none';
 
     // Load chapters / captions
