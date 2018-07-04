@@ -12,7 +12,7 @@ based on the JWPlayer interactive-transcripts demo: https://github.com/jwplayer/
 
 include these:
 
-```
+```html
 <script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js"></script>
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
 <script type="text/javascript" src="https://unpkg.com/@edwardsharp/a-player@0.0.1/dist/main.bundle.js"></script>
@@ -20,7 +20,7 @@ include these:
 
 override some styles, if you want. make sure to include these after `<script type="text/javascript" src="main.bundle.js"></script>`.
 
-```
+```html
 <style>
   .transcript span.current {
     background: green;
@@ -33,7 +33,19 @@ override some styles, if you want. make sure to include these after `<script typ
 
 and use like so:
 
+<!---
 ```
+<custom-element-demo>
+  <template>
+    <script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js"></script>
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@edwardsharp/a-player@0.0.1/dist/main.bundle.js"></script>
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+```html
 <a-player 
   autoplay="false"
   height="192"
