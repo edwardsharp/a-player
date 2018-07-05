@@ -15,7 +15,7 @@ include these:
 ```html
 <script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js"></script>
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
-<script type="text/javascript" src="https://unpkg.com/@edwardsharp/a-player@0.0.2/dist/main.bundle.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@edwardsharp/a-player@0.0.3/dist/main.bundle.js"></script>
 ```
 
 override some styles, if you want. make sure to include these after `<script type="text/javascript" src="main.bundle.js"></script>`.
@@ -39,7 +39,7 @@ and use like so:
   <template>
     <script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js"></script>
     <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@edwardsharp/a-player@0.0.2/dist/main.bundle.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@edwardsharp/a-player@0.0.3/dist/main.bundle.js"></script>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
