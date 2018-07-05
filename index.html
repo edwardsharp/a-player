@@ -6,7 +6,7 @@
   <script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js"></script>
   <!-- browser polyfills -->
   <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
-  <script src="https://unpkg.com/@edwardsharp/a-player@0.0.1/dist/main.bundle.js"></script>
+  <script src="https://unpkg.com/@edwardsharp/a-player@0.0.3/dist/main.bundle.js"></script>
   <style type="text/css">
   body{
     margin: 0;
@@ -40,11 +40,39 @@
     }
   }
   /* a-player style overrides */
+  .sidebar {
+    background-color: #000;
+    color: white;
+  }
+  .sidebar h3 {
+    color: white;
+  }
+  .searchbox input {
+    color: #000;
+    background-color: white;
+  }
+  .transcript p {
+    color: white;
+  }
+  .transcript span {
+    color: white;
+  }
   .transcript span.current {
-    background: green;
+    background: #ff6600;
+    color: #000;
   }
   .transcript span:not(.current):hover {
-    color: green;
+    color: #ff6600;
+  }
+  .transcript span em {
+    background: #666;
+    color: white;
+  }
+  .transcript span em.current {
+    background: #ff0046;
+  }
+  .transcript h4 {
+    color: white;
   }
   </style>
   <title>a-player DEMO</title>
@@ -60,7 +88,7 @@
   <pre>
   &lt;script src=&quot;https://content.jwplatform.com/libraries/IDzF9Zmk.js&quot;&gt;&lt;/script&gt;
   &lt;script src=&quot;https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;https://unpkg.com/@edwardsharp/a-player@0.0.1/dist/main.bundle.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://unpkg.com/@edwardsharp/a-player@0.0.3/dist/main.bundle.js&quot;&gt;&lt;/script&gt;
   </pre>
 
   <b>override some styles, if you want. make sure to include these after <code>&lt;script src=&quot;main.bundle.js&quot;&gt;&lt;/script&gt;</code>.</b>
@@ -69,11 +97,39 @@
 
   <pre>
   &lt;style&gt;
+    .sidebar {
+      background-color: black;
+      color: white;
+    }
+    .sidebar h3 {
+      color: white;
+    }
+    .searchbox input {
+      color: black;
+      background-color: white;
+    }
+    .transcript p {
+      color: white;
+    }
+    .transcript span {
+      color: white;
+    }
     .transcript span.current {
-      background: green;
+      background: #ff6600;
+      color: black;
     }
     .transcript span:not(.current):hover {
-      color: green;
+      color: #ff6600;
+    }
+    .transcript span em {
+      background: #666;
+      color: white;
+    }
+    .transcript span em.current {
+      background: #ff0046;
+    }
+    .transcript h4 {
+      color: white;
     }
   &lt;/style&gt;
   </pre>
