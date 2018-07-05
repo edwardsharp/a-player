@@ -73,7 +73,6 @@ class APlayer extends Slim {
   }
 
   onRender() {
-    console.log('this.autostart', this.autostart);
     this.initJwPlayer();
   } 
 
