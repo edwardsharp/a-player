@@ -1,6 +1,7 @@
 # a-player 
 
-demo: https://edwardsharp.github.io/a-player/
+demo: https://edwardsharp.github.io/a-player/  
+https://www.webcomponents.org/element/@edwardsharp/a-player  
 
 Web Component for rendering videos with accessible captions (&amp; other nifty things) via JWPlayer
 
