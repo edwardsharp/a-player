@@ -34,51 +34,70 @@
     flex: 1;
     margin: 2px;
   }
-  @media (max-width: 250px) {
+  @media (max-width: 400px) {
     .flex-grid {
       display: block;
     }
+    a-player {
+      margin: 0;
+    }
   }
   /* a-player style overrides */
-  .sidebar {
+  .dark .sidebar {
     background-color: #000;
     color: white;
   }
-  .sidebar h3 {
+  .dark .sidebar h3 {
     color: white;
   }
-  .searchbox input {
+  .dark .searchbox input {
     color: #000;
     background-color: white;
   }
-  .transcript p {
+  .dark .transcript p {
     color: white;
   }
-  .transcript span {
+  .dark .transcript span {
     color: white;
   }
-  .transcript span.current {
+  .dark .transcript span.current {
     background: #ff6600;
     color: #000;
   }
-  .transcript span:not(.current):hover {
+  .dark .transcript span:not(.current):hover {
     color: #ff6600;
   }
-  .transcript span em {
+  .dark .transcript span em {
     background: #666;
     color: white;
   }
-  .transcript span em.current {
+  .dark .transcript span em.current {
     background: #ff0046;
   }
-  .transcript h4 {
+  .dark .transcript h4 {
+    color: white;
+  }
+
+  .light .transcript span.current {
+    background: #0095D6;
+    color: white;
+  }
+  .light .transcript span:not(.current):hover {
+    color: #0095D6;
+  }
+  .light .searchbox input {
+    border: thin solid gray;
+  }
+  /* search results */
+  .light .transcript span em.current {
+    background: red;
     color: white;
   }
   </style>
   <title>a-player DEMO</title>
 </head>
 <body>
-  <h1>@edwardsharp/a-player</h1>
+  <h1>@edwardsharp/a-player <small>v0.0.3</small></h1>
   <a href="https://github.com/edwardsharp/a-player">github.com/edwardsharp/a-player</a>
 
   <h2>Usage</h2>
@@ -96,6 +115,26 @@
   <i>see <a href="https://github.com/edwardsharp/a-player/blob/master/src/index.scss" title="github.com/edwardsharp/a-player/blob/master/src/index.scss">index.scss</a> for refernce</i>
 
   <pre>
+  LIGHT THEME
+  &lt;style&gt;
+    .transcript span.current {
+      background: #0095D6;
+      color: white;
+    }
+    .transcript span:not(.current):hover {
+      color: #0095D6;
+    }
+    .searchbox input {
+      border: thin solid gray;
+    }
+    /* search results */
+    .transcript span em.current {
+      background: red;
+      color: white;
+    }
+  &lt;/style&gt;
+
+  DARK THEME
   &lt;style&gt;
     .sidebar {
       background-color: black;
@@ -138,8 +177,8 @@
   <pre>
   &lt;a-player 
     autoplay=&quot;false&quot;
-    height=&quot;192&quot;
-    width=&quot;384&quot;
+    height=&quot;225&quot;
+    width=&quot;400&quot;
     file=&quot;//content.jwplatform.com/manifests/3p683El7.m3u8&quot;
     image=&quot;//content.jwplatform.com/thumbs/3p683El7-640.jpg&quot;
     chapters-file=&quot;//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt&quot;
@@ -152,12 +191,12 @@
   &gt;&lt;/a-player&gt;
   </pre>
 
-  <h1>Demo</h1>
-  <div class="flex-grid">
+  <h1>Demo (dark theme)</h1>
+  <div class="flex-grid dark">
     <a-player 
       autoplay="false"
-      height="192"
-      width="384"
+      height="225"
+      width="400"
       file="//content.jwplatform.com/manifests/3p683El7.m3u8"
       image="//content.jwplatform.com/thumbs/3p683El7-640.jpg"
       chapters-file="//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt"
@@ -169,19 +208,30 @@
       captions-font-size="25"
     ></a-player>
     <a-player 
-      height="192"
-      width="384"
+      height="225"
+      width="400"
       file="//content.jwplatform.com/manifests/3p683El7.m3u8"
       image="//content.jwplatform.com/thumbs/3p683El7-640.jpg"
       chapters-file="//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt"
       captions-file="//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt"
       thumbnails-file="//content.jwplatform.com/strips/3p683El7-120.vtt"
     ></a-player>
-
     <a-player 
-      height="192"
-      width="384"></a-player>
+      height="225"
+      width="400"></a-player>
+  </div>
 
+  <h1>Demo (light theme)</h1>
+  <div class="flex-grid light">
+    <a-player 
+      height="225"
+      width="400"
+      file="//content.jwplatform.com/manifests/3p683El7.m3u8"
+      image="//content.jwplatform.com/thumbs/3p683El7-640.jpg"
+      chapters-file="//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/chapters.vtt"
+      captions-file="//raw.githubusercontent.com/jwplayer/jwdeveloper-demos/master/demos/innovation/interactive-transcripts/assets/captions.vtt"
+      thumbnails-file="//content.jwplatform.com/strips/3p683El7-120.vtt"
+    ></a-player>
   </div>
   <footer>made with ♥ in NYC</footer>
 </body>
