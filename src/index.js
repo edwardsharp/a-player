@@ -18,9 +18,9 @@ class APlayer extends Slim {
   query = "";
   cycle = -1;
   showSidebar = false;
-  //dark-color
-  transcriptsOff = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAdUlEQVQ4y2NgGKxAgYGB4T8ReAEuA5io5RIWKP2CgYHBEUncg4GBoZyBgeElAwNDBJL4C0IG/WBgYDiA5lVkcQ0GBgYJJIwMTkDVYQUJ0DB5AOUvwBNuClQNI2JdREicei4axgYx4hCXgKadH9B0Qkh8FBABAOnAJRVKrOykAAAAAElFTkSuQmCC";
-  //white-color
+  //base
+  transcriptsOff = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAWklEQVQ4y2NgGJTg////Cv+JAPjMYKK2izjQ+B1QR7wg1gwmBgYGBkZGxh9o4jeg9A9iHcFEgqtxhZsEVcOIhViFjIyMjDCXMTAwPGRkZFSgSawNY4NGAR0BAK4nWE06Kh34AAAAAElFTkSuQmCC";
+  //underlined
   transcriptsOn = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAY0lEQVQ4y2NgGJTg////Cv+JAPjMYKK2izjQ+B1QR7wg1gwmBgYGBkZGxh9o4jeg9A9iHcFEgqtxhZsEVcOIhViFjIyMjDCXMTAwPGRkZFSgSawNY4OGMWBETrlkGQBNX1QDAMv3XE78oP9+AAAAAElFTkSuQmCC";
   jwplayer;
   
