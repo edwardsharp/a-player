@@ -41,7 +41,28 @@ override some styles, if you want. make sure to include these after `<script typ
 </style>
 ```
 
-and use like so:
+### Options:
+
+| Option                | Required | Default |
+| ----------------------|:--------:| -------:|
+|file                   | *        |         | 
+|chapters-file          | *        |         | 
+|captions-file          |          | ''      | 
+|thumbnails-file        |          | ''      | 
+|audio-description-file |          | ''      | 
+|image                  |          | ''      | 
+|display-title          |          | false   | 
+|width                  |          | 320     | 
+|height                 |          | 180     | 
+|captions-color         |          | #ffffff | 
+|captions-bg            |          | #000000 | 
+|captions-bg-opacity    |          | 75      | 
+|captions-font-size     |          | 15      | 
+|mute                   |          | false   | 
+|volume                 |          | 100     | 
+|autostart              |          | false   | 
+
+## Demo:
 
 <!---
 ```

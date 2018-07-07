@@ -38,7 +38,10 @@ class APlayer extends Slim {
       'captions-color',
       'captions-bg',
       'captions-bg-opacity',
-      'captions-font-size'
+      'captions-font-size',
+      'audio-description-file',
+      'mute',
+      'volume'
     ];
   }
 
@@ -56,7 +59,10 @@ class APlayer extends Slim {
       'captions-color',
       'captions-bg',
       'captions-bg-opacity',
-      'captions-font-size'
+      'captions-font-size',
+      'audio-description-file',
+      'mute',
+      'volume'
     ];
   }
 
@@ -70,6 +76,8 @@ class APlayer extends Slim {
     this.captionsBg = this.captionsBg || "#000000";
     this.captionsBgOpacity = this.captionsBgOpacity || '75';
     this.captionsFontSize = this.captionsFontSize || '15';
+    this.volume = this.volume || '100';
+    this.mute = this.mute || 'false';
   }
 
   onRender() {
@@ -90,6 +98,8 @@ class APlayer extends Slim {
         width: this.width,
         height: this.height,
         autostart: this.autostart,
+        mute: this.mute,
+        volume: this.volume,
         captions: {
           fontSize: this.captionsFontSize,
           color: this.captionsColor, 
@@ -116,22 +126,27 @@ class APlayer extends Slim {
     this.sidebar.style.display = 'none';
 
     // Load chapters / captions
-    this.jwplayer.on('ready', () => {
-      var r = new XMLHttpRequest();
-      r.onreadystatechange = () => {
-        if (r.readyState == 4 && r.status == 200) {
-          var t = r.responseText.split("\n\n");
-          t.shift();
-          for(var i=0; i<t.length; i++) {
-            var c = this.parse(t[i]);
-            this.chapters.push(c);
+    if(!this.chaptersFile){
+      this.loadCaptions();
+    }else{
+      this.jwplayer.on('ready', () => {
+        var r = new XMLHttpRequest();
+        r.onreadystatechange = () => {
+          if (r.readyState == 4 && r.status == 200) {
+            var t = r.responseText.split("\n\n");
+            t.shift();
+            for(var i=0; i<t.length; i++) {
+              var c = this.parse(t[i]);
+              this.chapters.push(c);
+            }
+            this.loadCaptions();
           }
-          this.loadCaptions();
-        }
-      };
-      r.open('GET',this.chaptersFile,true);
-      r.send();
-    });
+        };
+        r.open('GET',this.chaptersFile,true);
+        r.send();
+      });
+    }
+    
 
     // Highlight current caption and chapter
     this.jwplayer.on('time', (e) => {
@@ -197,13 +212,15 @@ class APlayer extends Slim {
         var h = "<p>";
         var s = 0;
         for(var i=0; i<t.length; i++) {
-          var c = this.parse(t[i]);
-          if(s < this.chapters.length && c.begin > this.chapters[s].begin) {
-            h += "</p><h4>"+this.chapters[s].text+"</h4><p>";
-            s++;
-          }
-          h += "<span id='caption"+i+"'>"+c.text+"</span>";
-          this.captions.push(c);
+          // try{
+            var c = this.parse(t[i]);
+            if(s < this.chapters.length && c.begin > this.chapters[s].begin) {
+              h += "</p><h4>"+this.chapters[s].text+"</h4><p>";
+              s++;
+            }
+            h += "<span id='caption"+i+"'>"+c.text+"</span>";
+            this.captions.push(c);
+          // }catch(e){console.warn('caught err!')}
         }
         this.transcript.innerHTML = h + "</p>";
       }
@@ -229,20 +246,34 @@ class APlayer extends Slim {
 
   parse(d){
     var a = d.split("\n");
-    var i = a[1].indexOf(' --> ');
-    var t = a[2];
-    if (a[3]) {  t += " " + a[3]; }
-    t = t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    var i; 
+    var t = '';
+    var aa;
+    if(a[1] && a[1].indexOf(' --> ') !== -1){
+      i = a[1].indexOf(' --> ')
+      if(a[2]){ t = a[2]; }
+      if(a[3]){ t += " " + a[3]; }
+      aa = a[1];
+    }else{
+      i = a[0].indexOf(' --> ');
+      if(a[1]){ t = a[1]; }
+      if(a[2]){ t += " " + a[2]; }
+      aa = a[0];
+    }
+    if(t){
+      t = t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
     return {
-      begin: this.seconds(a[1].substr(0,i)),
-      btext: a[1].substr(3,i-7),
-      end: this.seconds(a[1].substr(i+5)),
+      begin: this.seconds(aa.substr(0,i)),
+      btext: aa.substr(3,i-7),
+      end: this.seconds(aa.substr(i+5)),
       text: t
     }
   }
 
   seconds(s){
-    var a = s.split(':');
+    var sec = s.split(' ')[0];
+    var a = sec.split(':');
     var r = Number(a[a.length-1]) + Number(a[a.length-2]) * 60;
     if(a.length > 2) { r+= Number(a[a.length-3]) * 3600; }
     return r;
