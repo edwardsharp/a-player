@@ -258,7 +258,7 @@ class APlayer extends Slim {
 
       this.jwplayer.addButton(
         this.adOff,
-        "Turn On Audio Description",
+        "Toggle Audio Description",
         () => {        
           this.toggleAudioDescriptionBtn();
         },
@@ -288,7 +288,7 @@ class APlayer extends Slim {
     this.adToggle = !this.adToggle;
     this.jwplayer.addButton(
       this.adToggle ? this.adOn : this.adOff,
-      "Turn Off Audio Description",
+      "Toggle Audio Description",
       () => {        
         this.toggleAudioDescriptionBtn();
       },
