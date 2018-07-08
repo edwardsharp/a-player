@@ -22,6 +22,11 @@ class APlayer extends Slim {
   transcriptsOff = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAWklEQVQ4y2NgGJTg////Cv+JAPjMYKK2izjQ+B1QR7wg1gwmBgYGBkZGxh9o4jeg9A9iHcFEgqtxhZsEVcOIhViFjIyMjDCXMTAwPGRkZFSgSawNY4NGAR0BAK4nWE06Kh34AAAAAElFTkSuQmCC";
   //underlined
   transcriptsOn = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAY0lEQVQ4y2NgGJTg////Cv+JAPjMYKK2izjQ+B1QR7wg1gwmBgYGBkZGxh9o4jeg9A9iHcFEgqtxhZsEVcOIhViFjIyMjDCXMTAwPGRkZFSgSawNY4OGMWBETrlkGQBNX1QDAMv3XE78oP9+AAAAAElFTkSuQmCC";
+  adToggle = false;
+  //base
+  adOff = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABx0lEQVRYw+1YTauCQBQ9YxEtoiKIfkCb6If0g2sRQVAYtHMjBQZRi4hM49nnIjDuW7z3JHWsUTc+86zmysx47se5owNk+CcgIpZu74hISiK3Z1K5pBNERjDtBFnSCVLSW03i0/0WvV6PvPh1LhCz2cyVGVVVHXuz2VC32/0CAMMwuBlkIaPs24QxxnjPefOe9/mzg8ahVXy73ShmCTnrTdPE8XgkANB1HfP5PF79q6oamEJeimVZpvP5HDjfS/hvPJlMSCQbXO9FCR4OB+cFmqaFIsgrIyls3a1WK2HHWq2Wr8ZlWaaofdAHXdd9mzWbzVDCMgzDZZdKJQDA9XqNR3AwGFCj0QhUoijq9brLfjweAIB8Ph+PYKfTcdn3+z2SwLw+7XY7CwCKxWJ01dq2TaLwiuR0OtErcYUViS/OmqZRLhf927VcLiOoVYzHY+7pZFkWAGC5XJKiKNFbimgf5GGxWLii1O/36V30hMi9mydCUFEUZ5/hcOisG41Gzng6ndJ2u6WXZ/HlciHbtn/UI0moVCpc1e73eyoUCiAi1Go1tl6vqVqtPtcwTNNEu91O8a9mhgyfckGU7kujpHr6OVHPkOETVPwNKhaTKq3lMlMAAAAASUVORK5CYII=";
+  //underlined
+  adOn = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAACNElEQVRYw+2Yy6raUBSGv63WChW1gvgATsR3aAcd+EB9NB2IcKii4CwTUVCwOhDxEql3qEXP6qA5wUuiUcGm1n+0V9jZ+dflXzt7wxP/CEREPbZ3IuJxI7ddUl63E+RJ8NEJKrcTFLe3Gten+yyy2awcwnDOFrVabS8z1WrVtLvdrmQymR8Ao9HIMoPqwigfLaKUUlbPrebtrvNm240vVvFqtZIbS8h8X9d1ptOpAAwGA+r1+m31X61WbVNoleJSqSTz+dx2/iHht3G5XBYn2bD03inB8XhsfqDRaFxE0KqMPJfWXbvdduxYMpk8qvFSqSTX9sEjDAaDo8USicRFwhqNRnt2MBgEYLlc3kYwn89LPB63VaJTxGKxPXu73QLg8/luI5hOp/fs9Xp9lcAOfer3+xOAQCBwvWo3m404xaFIZrOZnBLXpSI5inOj0RCv9/p/11AohF2rKBaLlrvTZDIBoNVqiaZp17cUp33QCs1mcy9KuVxOzkXPEblz85wQ1DTNXOfl5cV8r1AomONKpSK9Xk9O7sWLxUI2m80f9Xg8hMNhS9UOh0Px+/2ICNFoVHU6HYlEIrs1jK7rpFKpBz5qPvHE/3JB9NiXRm71dJeLsjl+qr9wkBdAlFKvtjuJiPiBL8An4APw8w4HegUEgBVQBr4ppX7Z/c28Az4DX4H3wOudCHqAtTEuA7YEt8B3oABEgOWdCAaBqfHt7akUe4CPBjmvEcF73RFtDZKTwzp0tYp/AzvytxswCV76AAAAAElFTkSuQmCC";
   jwplayer;
   
   static get observedAttributes() {
@@ -39,7 +44,9 @@ class APlayer extends Slim {
       'captions-bg',
       'captions-bg-opacity',
       'captions-font-size',
+      'captions-hidden',
       'audio-description-file',
+      'audio-description-file-type',
       'mute',
       'volume'
     ];
@@ -60,7 +67,9 @@ class APlayer extends Slim {
       'captions-bg',
       'captions-bg-opacity',
       'captions-font-size',
+      'captions-hidden',
       'audio-description-file',
+      'audio-description-file-type',
       'mute',
       'volume'
     ];
@@ -78,6 +87,7 @@ class APlayer extends Slim {
     this.captionsFontSize = this.captionsFontSize || '15';
     this.volume = this.volume || '100';
     this.mute = this.mute || 'false';
+    this.audioDescriptionFileType = this.audioDescriptionFileType || 'audio/mp3';
   }
 
   onRender() {
@@ -85,45 +95,64 @@ class APlayer extends Slim {
   } 
 
   initJwPlayer(){
-    // Setup JW Player
-    this.jwplayer = jwplayer(this.player).setup({
-        file: this.file,
-        image: this.image,
-        tracks: [
-          { file: this.chaptersFile, kind: "chapters" },
-          { file: this.captionsFile, kind: "captions", label: "Default" },
-          { file: this.thumbnailsFile, kind: "thumbnails" }
-        ],
-        displaytitle: this.displayTitle,
-        width: this.width,
-        height: this.height,
-        autostart: this.autostart,
-        mute: this.mute,
-        volume: this.volume,
-        captions: {
-          fontSize: this.captionsFontSize,
-          color: this.captionsColor, 
-          backgroundColor: this.captionsBg,
-          backgroundOpacity: this.captionsBgOpacity
-        }
-    });
+    // default optz
+    let optz = {
+      file: this.file,
+      // sources: [
+      //   { file: this.file, default: true }
+      // ],
+      displaytitle: this.displayTitle,
+      width: this.width,
+      height: this.height,
+      autostart: this.autostart,
+      mute: this.mute,
+      volume: this.volume,
+      captions: {
+        fontSize: this.captionsFontSize,
+        color: this.captionsColor, 
+        backgroundColor: this.captionsBg,
+        backgroundOpacity: this.captionsBgOpacity
+      }
+    }
+
+    //merge optional argz
+    if(this.image && this.image !== ''){
+      optz.image = this.image;
+    }
+    if(this.chaptersFile && this.chaptersFile != ''){
+      optz.tracks = optz.tracks || [];
+      optz.tracks.push({ file: this.chaptersFile, kind: "chapters" });
+    }
+    if(this.captionsFile && this.captionsFile != ''){
+      optz.tracks = optz.tracks || [];
+      optz.tracks.push({ file: this.captionsFile, kind: "captions", label: "Default" });
+    }
+    if(this.thumbnailsFile && this.thumbnailsFile != ''){
+      optz.tracks = optz.tracks || [];
+      optz.tracks.push({ file: this.thumbnailsFile, kind: "thumbnails" });
+    }
+    
+    console.log('optz:',optz);
+    this.jwplayer = jwplayer(this.player).setup(optz);
 
     this.sidebar.style.height = `${this.height}px`;
-    this.transcript.style.height = `${this.height - 68}px`;
-
-    this.jwplayer.setCurrentCaptions(0);
-    
-    this.jwplayer.addButton(
-      this.transcriptsOff,
-      "Toggle Transcripts",
-      () => {        
-        this.toggleTranscriptsBtn();
-      },
-      "toggleTranscripts"
-    );
-
     this.sidebar.style.maxWidth = `${this.width}px`;
     this.sidebar.style.display = 'none';
+    this.transcript.style.height = `${this.height - 68}px`;
+
+    if(this.captionsFile && this.captionsFile != ''){
+      this.jwplayer.addButton(
+        this.transcriptsOff,
+        "Toggle Transcripts",
+        () => {        
+          this.toggleTranscriptsBtn();
+        },
+        "toggleTranscripts"
+      );
+      if(!this.captionsHidden){
+        this.toggleTranscriptsBtn();
+      }
+    }
 
     // Load chapters / captions
     if(!this.chaptersFile){
@@ -146,7 +175,8 @@ class APlayer extends Slim {
         r.send();
       });
     }
-    
+
+    this.jwplayer.setCurrentCaptions(0);
 
     // Highlight current caption and chapter
     this.jwplayer.on('time', (e) => {
@@ -200,8 +230,71 @@ class APlayer extends Slim {
         }
       }
     });
+    
+    if(this.audioDescriptionFile && this.audioDescriptionFile !== ''){
+      this.audiosource.src = this.audioDescriptionFile;
+      this.audiosource.type = this.audioDescriptionFileType;
+      this.audio.muted = true;
+
+      this.jwplayer.on('play', (e) => {
+        this.audio.play();
+      });
+      this.jwplayer.on('pause', (e) => {
+        this.audio.pause();
+      });
+      this.jwplayer.on('seek', (e) => {
+        console.log('seek position', e.position)
+        this.audio.currentTime = e.position;
+        //this.audio.play();
+      });
+      this.jwplayer.on('mute', (e) => {
+        console.log('mute muted:',e);
+        this.audio.muted = e.mute;
+      });
+      this.jwplayer.on('volume', (e) => {
+        console.log('volume:',e.volume / 100)
+        this.audio.volume = e.volume / 100;
+      });
+
+      this.jwplayer.addButton(
+        this.adOff,
+        "Turn On Audio Description",
+        () => {        
+          this.toggleAudioDescriptionBtn();
+        },
+        "toggleAudioDescription"
+      );
+    }
   }
   //end initJwPlayer
+
+  toggleTranscriptsBtn(){
+    this.jwplayer.removeButton('toggleTranscripts');
+    this.showSidebar = !this.showSidebar;
+    this.sidebar.style.display = this.showSidebar ? 'initial' : 'none';
+    this.jwplayer.addButton(
+      this.showSidebar ? this.transcriptsOn : this.transcriptsOff,
+      "Toggle Transcripts",
+      () => {        
+        this.toggleTranscriptsBtn();
+      },
+      "toggleTranscripts"
+    );
+  }
+
+  toggleAudioDescriptionBtn(){
+    this.jwplayer.removeButton('toggleAudioDescription');
+    this.audio.muted = this.adToggle;
+    this.adToggle = !this.adToggle;
+    this.jwplayer.addButton(
+      this.adToggle ? this.adOn : this.adOff,
+      "Turn Off Audio Description",
+      () => {        
+        this.toggleAudioDescriptionBtn();
+      },
+      "toggleAudioDescription"
+    );
+  }
 
   loadCaptions(){
     var r = new XMLHttpRequest();
@@ -227,21 +320,6 @@ class APlayer extends Slim {
     };
     r.open('GET',this.captionsFile,true);
     r.send();
-  }
-
-
-  toggleTranscriptsBtn(){
-    this.jwplayer.removeButton('toggleTranscripts');
-    this.showSidebar = !this.showSidebar;
-    this.sidebar.style.display = this.showSidebar ? 'initial' : 'none';
-    this.jwplayer.addButton(
-      this.showSidebar ? this.transcriptsOn : this.transcriptsOff,
-      "Toggle Transcripts",
-      () => {        
-        this.toggleTranscriptsBtn();
-      },
-      "toggleTranscripts"
-    );
   }
 
   parse(d){
