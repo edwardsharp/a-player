@@ -46,8 +46,8 @@ override some styles, if you want. make sure to include these after `<script typ
 | Option                     | Required | Default     |
 | ---------------------------|:--------:| -----------:|
 |file                        | *        |             | 
-|chapters-file               | *        |             | 
 |captions-file               |          | ''          | 
+|chapters-file               |          | ''          | 
 |thumbnails-file             |          | ''          | 
 |audio-description-file      |          | ''          | 
 |audio-description-file-type |          | 'audio/mp3' |
