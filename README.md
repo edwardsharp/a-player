@@ -59,7 +59,7 @@ override some styles, if you want. make sure to include these after `<script typ
 |captions-bg                 |          | #000000     | 
 |captions-bg-opacity         |          | 75          | 
 |captions-font-size          |          | 15          | 
-|captions-hidden             |          | true        |
+|captions-hidden             |          | false       |
 |mute                        |          | false       | 
 |volume                      |          | 100         | 
 |autostart                   |          | false       | 
