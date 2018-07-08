@@ -132,7 +132,6 @@ class APlayer extends Slim {
       optz.tracks.push({ file: this.thumbnailsFile, kind: "thumbnails" });
     }
     
-    console.log('optz:',optz);
     this.jwplayer = jwplayer(this.player).setup(optz);
 
     this.sidebar.style.height = `${this.height}px`;
@@ -232,8 +231,8 @@ class APlayer extends Slim {
     });
     
     if(this.audioDescriptionFile && this.audioDescriptionFile !== ''){
-      this.audiosource.src = this.audioDescriptionFile;
-      this.audiosource.type = this.audioDescriptionFileType;
+      this.audio.src = this.audioDescriptionFile;
+      // this.audio.type = this.audioDescriptionFileType;
       this.audio.muted = true;
 
       this.jwplayer.on('play', (e) => {
