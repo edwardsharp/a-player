@@ -148,7 +148,7 @@ class APlayer extends Slim {
       this.transcript.style.maxHeight = `${this.height - 80}px`;
     }else{
       this.searchbox.style.display = 'none';
-      this.transcript.style.maxHeight = `${this.height}px`;
+      this.transcript.style.maxHeight = `${this.height - 10}px`;
     }
     
 
