@@ -44,11 +44,12 @@ class APlayer extends Slim {
       'captions-bg',
       'captions-bg-opacity',
       'captions-font-size',
-      'captions-hidden',
       'audio-description-file',
       'audio-description-file-type',
       'mute',
-      'volume'
+      'volume',
+      'show-transcripts',
+      'show-search'
     ];
   }
 
@@ -67,11 +68,12 @@ class APlayer extends Slim {
       'captions-bg',
       'captions-bg-opacity',
       'captions-font-size',
-      'captions-hidden',
       'audio-description-file',
       'audio-description-file-type',
       'mute',
-      'volume'
+      'volume',
+      'show-transcripts',
+      'show-search'
     ];
   }
 
@@ -88,6 +90,7 @@ class APlayer extends Slim {
     this.volume = this.volume || '100';
     this.mute = this.mute || 'false';
     this.audioDescriptionFileType = this.audioDescriptionFileType || 'audio/mp3';
+
   }
 
   onRender() {
@@ -134,10 +137,16 @@ class APlayer extends Slim {
     
     this.jwplayer = jwplayer(this.player).setup(optz);
 
-    this.sidebar.style.height = `${this.height}px`;
+    this.sidebar.style.maxHeight = `${this.height}px`;
     this.sidebar.style.maxWidth = `${this.width}px`;
     this.sidebar.style.display = 'none';
-    this.transcript.style.height = `${this.height - 68}px`;
+    if(this.showSearch){
+      this.transcript.style.maxHeight = `${this.height - 68}px`;
+    }else{
+      this.searchbox.style.display = 'none';
+      this.transcript.style.maxHeight = `${this.height}px`;
+    }
+    
 
     if(this.captionsFile && this.captionsFile != ''){
       this.jwplayer.addButton(
@@ -148,7 +157,7 @@ class APlayer extends Slim {
         },
         "toggleTranscripts"
       );
-      if(!this.captionsHidden){
+      if(this.showTranscripts){
         this.toggleTranscriptsBtn();
       }
     }
