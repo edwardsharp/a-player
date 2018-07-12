@@ -42,7 +42,7 @@
 }
 
 .transcript {
-  padding: 0 10px;
+  padding: 5px 10px;
   overflow: auto;
 }
 
@@ -52,6 +52,7 @@
   text-align: left;
   line-height: 20px;
   margin: 0;
+  padding-bottom: 5px;
 }
 
 .transcript span {
@@ -69,6 +70,53 @@
   margin: 25px 0 15px 0;
   text-align: left;
   font-weight: bold;
+}
+
+.sidebar {
+  border-right: thin solid black;
+  border-left: thin solid black;
+  border-bottom: thin solid black;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.accordion {
+  margin-top: 5px;
+  padding: 10px;
+  border: thin solid black;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.accordion:hover{
+  color: white;
+  background-color: black;
+}
+
+.accordion:hover .arrow-right{
+  border-color: transparent transparent transparent white; 
+}
+.accordion:hover .arrow-down{
+  border-color: white transparent transparent transparent;
+}
+
+.arrow-down, .arrow-right {
+  display: inline-block;
+  position: relative;
+  top: 8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.arrow-down {
+  border-width: 10px 5px 0 5px;
+  border-color: black transparent transparent transparent;
+}
+.arrow-right {
+  border-width: 5px 0 5px 10px;
+  border-color: transparent transparent transparent black; 
 }
 
 .jw-button-container .jw-button-color:not(.jw-button-image):hover,

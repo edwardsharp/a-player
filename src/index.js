@@ -118,6 +118,12 @@ class APlayer extends Slim {
       }
     }
 
+    this.sidebar.style.maxHeight = `${this.height}px`;
+    this.sidebar.style.maxWidth = `${this.width}px`;
+    this.accordion.style.maxWidth = `${this.width}px`;
+    this.sidebar.style.display = 'none';
+    this.accordion.style.display = 'none';
+
     //merge optional argz
     if(this.image && this.image !== ''){
       optz.image = this.image;
@@ -137,11 +143,9 @@ class APlayer extends Slim {
     
     this.jwplayer = jwplayer(this.player).setup(optz);
 
-    this.sidebar.style.maxHeight = `${this.height}px`;
-    this.sidebar.style.maxWidth = `${this.width}px`;
-    this.sidebar.style.display = 'none';
+
     if(this.showSearch){
-      this.transcript.style.maxHeight = `${this.height - 68}px`;
+      this.transcript.style.maxHeight = `${this.height - 80}px`;
     }else{
       this.searchbox.style.display = 'none';
       this.transcript.style.maxHeight = `${this.height}px`;
@@ -149,6 +153,10 @@ class APlayer extends Slim {
     
 
     if(this.captionsFile && this.captionsFile != ''){
+      this.accordion.style.display = 'block';
+      this.accordion.addEventListener('click', () => {
+        this.toggleTranscriptsBtn();
+      });
       this.jwplayer.addButton(
         this.transcriptsOff,
         "Toggle Transcripts",
@@ -160,6 +168,8 @@ class APlayer extends Slim {
       if(this.showTranscripts){
         this.toggleTranscriptsBtn();
       }
+
+
     }
 
     // Load chapters / captions
@@ -251,16 +261,13 @@ class APlayer extends Slim {
         this.audio.pause();
       });
       this.jwplayer.on('seek', (e) => {
-        console.log('seek position', e.position)
         this.audio.currentTime = e.position;
         //this.audio.play();
       });
       this.jwplayer.on('mute', (e) => {
-        console.log('mute muted:',e);
         this.audio.muted = e.mute;
       });
       this.jwplayer.on('volume', (e) => {
-        console.log('volume:',e.volume / 100)
         this.audio.volume = e.volume / 100;
       });
 
@@ -288,6 +295,15 @@ class APlayer extends Slim {
       },
       "toggleTranscripts"
     );
+    if(this.showSidebar){
+      this.indicator.classList.remove('arrow-right');
+      this.indicator.classList.add('arrow-down');
+      this.accordion.setAttribute('aria-expanded', true);
+    }else{
+      this.indicator.classList.remove('arrow-down');
+      this.indicator.classList.add('arrow-right');
+      this.accordion.setAttribute('aria-expanded', false);
+    }
   }
 
   toggleAudioDescriptionBtn(){
@@ -305,29 +321,31 @@ class APlayer extends Slim {
   }
 
   loadCaptions(){
-    var r = new XMLHttpRequest();
-    r.onreadystatechange = () => {
-      if (r.readyState == 4 && r.status == 200) {
-        var t = r.responseText.split("\n\n");
-        t.shift();
-        var h = "<p>";
-        var s = 0;
-        for(var i=0; i<t.length; i++) {
-          // try{
-            var c = this.parse(t[i]);
-            if(s < this.chapters.length && c.begin > this.chapters[s].begin) {
-              h += "</p><h4>"+this.chapters[s].text+"</h4><p>";
-              s++;
-            }
-            h += "<span id='caption"+i+"'>"+c.text+"</span>";
-            this.captions.push(c);
-          // }catch(e){console.warn('caught err!')}
+    if(this.captionsFile && this.captionsFile !== ''){
+      var r = new XMLHttpRequest();
+      r.onreadystatechange = () => {
+        if (r.readyState == 4 && r.status == 200) {
+          var t = r.responseText.split("\n\n");
+          t.shift();
+          var h = "<p>";
+          var s = 0;
+          for(var i=0; i<t.length; i++) {
+            // try{
+              var c = this.parse(t[i]);
+              if(s < this.chapters.length && c.begin > this.chapters[s].begin) {
+                h += "</p><h4>"+this.chapters[s].text+"</h4><p>";
+                s++;
+              }
+              h += "<span id='caption"+i+"'>"+c.text+"</span>";
+              this.captions.push(c);
+            // }catch(e){console.warn('caught err!')}
+          }
+          this.transcript.innerHTML = h + "</p>";
         }
-        this.transcript.innerHTML = h + "</p>";
-      }
-    };
-    r.open('GET',this.captionsFile,true);
-    r.send();
+      };
+      r.open('GET',this.captionsFile,true);
+      r.send();
+    }
   }
 
   parse(d){
