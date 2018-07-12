@@ -105,10 +105,11 @@
 .arrow-down, .arrow-right {
   display: inline-block;
   position: relative;
-  top: 8px;
+  top: 5px;
   width: 0;
   height: 0;
   border-style: solid;
+  float: left;
 }
 .arrow-down {
   border-width: 10px 5px 0 5px;
@@ -117,6 +118,10 @@
 .arrow-right {
   border-width: 5px 0 5px 10px;
   border-color: transparent transparent transparent black; 
+}
+
+.indicator-txt{
+  margin-left: 0.5em;
 }
 
 .jw-button-container .jw-button-color:not(.jw-button-image):hover,

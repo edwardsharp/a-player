@@ -28,6 +28,7 @@ class APlayer extends Slim {
   //underlined
   adOn = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAACNElEQVRYw+2Yy6raUBSGv63WChW1gvgATsR3aAcd+EB9NB2IcKii4CwTUVCwOhDxEql3qEXP6qA5wUuiUcGm1n+0V9jZ+dflXzt7wxP/CEREPbZ3IuJxI7ddUl63E+RJ8NEJKrcTFLe3Gten+yyy2awcwnDOFrVabS8z1WrVtLvdrmQymR8Ao9HIMoPqwigfLaKUUlbPrebtrvNm240vVvFqtZIbS8h8X9d1ptOpAAwGA+r1+m31X61WbVNoleJSqSTz+dx2/iHht3G5XBYn2bD03inB8XhsfqDRaFxE0KqMPJfWXbvdduxYMpk8qvFSqSTX9sEjDAaDo8USicRFwhqNRnt2MBgEYLlc3kYwn89LPB63VaJTxGKxPXu73QLg8/luI5hOp/fs9Xp9lcAOfer3+xOAQCBwvWo3m404xaFIZrOZnBLXpSI5inOj0RCv9/p/11AohF2rKBaLlrvTZDIBoNVqiaZp17cUp33QCs1mcy9KuVxOzkXPEblz85wQ1DTNXOfl5cV8r1AomONKpSK9Xk9O7sWLxUI2m80f9Xg8hMNhS9UOh0Px+/2ICNFoVHU6HYlEIrs1jK7rpFKpBz5qPvHE/3JB9NiXRm71dJeLsjl+qr9wkBdAlFKvtjuJiPiBL8An4APw8w4HegUEgBVQBr4ppX7Z/c28Az4DX4H3wOudCHqAtTEuA7YEt8B3oABEgOWdCAaBqfHt7akUe4CPBjmvEcF73RFtDZKTwzp0tYp/AzvytxswCV76AAAAAElFTkSuQmCC";
   jwplayer;
+  id = parseInt((Math.random() * 1e9)).toString(36);
   
   static get observedAttributes() {
     return [
@@ -123,6 +124,8 @@ class APlayer extends Slim {
     this.accordion.style.maxWidth = `${this.width}px`;
     this.sidebar.style.display = 'none';
     this.accordion.style.display = 'none';
+    this.accordion.id = this.id;
+    this.sidebar.setAttribute('aria-controls', this.id);
 
     //merge optional argz
     if(this.image && this.image !== ''){
