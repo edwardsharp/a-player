@@ -119,9 +119,6 @@ class APlayer extends Slim {
       }
     }
 
-    this.sidebar.style.maxHeight = `${this.height}px`;
-    this.sidebar.style.maxWidth = `${this.width}px`;
-    this.accordion.style.maxWidth = `${this.width}px`;
     this.sidebar.style.display = 'none';
     this.accordion.style.display = 'none';
     this.accordion.id = this.id;
@@ -146,14 +143,8 @@ class APlayer extends Slim {
     
     this.jwplayer = jwplayer(this.player).setup(optz);
 
-
-    if(this.showSearch){
-      this.transcript.style.maxHeight = `${this.height - 80}px`;
-    }else{
-      this.searchbox.style.display = 'none';
-      this.transcript.style.maxHeight = `${this.height - 10}px`;
-    }
-    
+    window.addEventListener('resize', () => this.setDimensions());
+    this.setDimensions();
 
     if(this.captionsFile && this.captionsFile != ''){
       this.accordion.style.display = 'block';
@@ -285,6 +276,29 @@ class APlayer extends Slim {
     }
   }
   //end initJwPlayer
+
+  setDimensions(){
+    console.log('gonna setDimensions!');
+    let height = this.height;
+    let width = this.width;
+    if(this.width > window.innerWidth){
+      height = (this.height / this.width) * window.innerWidth;
+      width = window.innerWidth;
+      console.log('heightXwidth now:',this.height,this.width);
+    }
+    
+    this.sidebar.style.maxHeight = `${height}px`;
+    this.sidebar.style.maxWidth = `${width}px`;
+    this.accordion.style.maxWidth = `${width}px`;
+    if(this.showSearch){
+      this.transcript.style.maxHeight = `${height - 80}px`;
+    }else{
+      this.searchbox.style.display = 'none';
+      this.transcript.style.maxHeight = `${height - 10}px`;
+    }
+
+    this.jwplayer.resize(width, height);
+  }
 
   toggleTranscriptsBtn(){
     this.jwplayer.removeButton('toggleTranscripts');
