@@ -40,6 +40,7 @@ class APlayer extends Slim {
       'display-title',
       'chapters-file',
       'captions-file',
+      'captions-file-label',
       'thumbnails-file',
       'captions-color',
       'captions-bg',
@@ -64,6 +65,7 @@ class APlayer extends Slim {
       'display-title',
       'chapters-file',
       'captions-file',
+      'captions-file-label',
       'thumbnails-file',
       'captions-color',
       'captions-bg',
@@ -91,6 +93,7 @@ class APlayer extends Slim {
     this.volume = this.volume || '100';
     this.mute = this.mute || 'false';
     this.audioDescriptionFileType = this.audioDescriptionFileType || 'audio/mp3';
+    this.captionsFileLabel = this.captionsFileLabel || 'Default';
 
   }
 
@@ -134,7 +137,7 @@ class APlayer extends Slim {
     }
     if(this.captionsFile && this.captionsFile != ''){
       optz.tracks = optz.tracks || [];
-      optz.tracks.push({ file: this.captionsFile, kind: "captions", label: "Default" });
+      optz.tracks.push({ file: this.captionsFile, kind: "captions", label: this.captionsFileLabel });
     }
     if(this.thumbnailsFile && this.thumbnailsFile != ''){
       optz.tracks = optz.tracks || [];
@@ -255,7 +258,7 @@ class APlayer extends Slim {
         this.audio.pause();
       });
       this.jwplayer.on('seek', (e) => {
-        this.audio.currentTime = e.position;
+        this.audio.currentTime = e.offset;
         //this.audio.play();
       });
       this.jwplayer.on('mute', (e) => {
@@ -278,13 +281,11 @@ class APlayer extends Slim {
   //end initJwPlayer
 
   setDimensions(){
-    console.log('gonna setDimensions!');
     let height = this.height;
     let width = this.width;
     if(this.width > window.innerWidth){
       height = (this.height / this.width) * window.innerWidth;
       width = window.innerWidth;
-      console.log('heightXwidth now:',this.height,this.width);
     }
     
     this.sidebar.style.maxHeight = `${height}px`;
@@ -301,40 +302,58 @@ class APlayer extends Slim {
   }
 
   toggleTranscriptsBtn(){
-    this.jwplayer.removeButton('toggleTranscripts');
     this.showSidebar = !this.showSidebar;
     this.sidebar.style.display = this.showSidebar ? 'initial' : 'none';
-    this.jwplayer.addButton(
-      this.showSidebar ? this.transcriptsOn : this.transcriptsOff,
-      "Toggle Transcripts",
-      () => {        
-        this.toggleTranscriptsBtn();
-      },
-      "toggleTranscripts"
-    );
     if(this.showSidebar){
       this.indicator.classList.remove('arrow-right');
       this.indicator.classList.add('arrow-down');
       this.accordion.setAttribute('aria-expanded', true);
+      this.accordion.setAttribute('aria-pressed', true);
     }else{
       this.indicator.classList.remove('arrow-down');
       this.indicator.classList.add('arrow-right');
       this.accordion.setAttribute('aria-expanded', false);
+      this.accordion.setAttribute('aria-pressed', false);
     }
+    this.toggleJWBtnz();
+    setTimeout(() => {
+      this.querySelector('[button="toggleTranscripts"]').setAttribute('aria-pressed',this.showSidebar);
+    }, 500);
   }
 
   toggleAudioDescriptionBtn(){
-    this.jwplayer.removeButton('toggleAudioDescription');
     this.audio.muted = this.adToggle;
     this.adToggle = !this.adToggle;
-    this.jwplayer.addButton(
-      this.adToggle ? this.adOn : this.adOff,
-      "Toggle Audio Description",
-      () => {        
-        this.toggleAudioDescriptionBtn();
-      },
-      "toggleAudioDescription"
-    );
+    this.toggleJWBtnz();
+    setTimeout(() => {
+      this.querySelector('[button="toggleAudioDescription"]').setAttribute('aria-pressed',this.adToggle);
+    }, 100);
+  }
+
+  toggleJWBtnz(){
+    if(this.captionsFile && this.captionsFile != ''){
+      this.jwplayer.removeButton('toggleTranscripts');
+      this.jwplayer.addButton(
+        this.showSidebar ? this.transcriptsOn : this.transcriptsOff,
+        "Toggle Transcripts",
+        () => {        
+          this.toggleTranscriptsBtn();
+        },
+        "toggleTranscripts"
+      );
+    }
+
+    if(this.audioDescriptionFile && this.audioDescriptionFile !== ''){
+      this.jwplayer.removeButton('toggleAudioDescription');
+      this.jwplayer.addButton(
+        this.adToggle ? this.adOn : this.adOff,
+        "Toggle Audio Description",
+        () => {        
+          this.toggleAudioDescriptionBtn();
+        },
+        "toggleAudioDescription"
+      );
+    }
   }
 
   loadCaptions(){

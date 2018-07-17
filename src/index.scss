@@ -81,23 +81,27 @@
   box-sizing: border-box;
 }
 
-.accordion {
+.a-accordion {
   padding: 10px;
   border: thin solid black;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  font: inherit;
 }
 
-.accordion:hover{
+.a-accordion:hover, .a-accordion:focus{
   color: white;
   background-color: black;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: 0;
 }
 
-.accordion:hover .arrow-right{
+.a-accordion:hover .arrow-right, .a-accordion:focus .arrow-right{
   border-color: transparent transparent transparent white; 
 }
-.accordion:hover .arrow-down{
+.a-accordion:hover .arrow-down, .a-accordion:focus .arrow-down{
   border-color: white transparent transparent transparent;
 }
 
