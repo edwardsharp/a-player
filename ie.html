@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- ie polyfillz -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js" integrity="sha256-qyG2LBYZavhW0RXdL7CQGGv2dX4WP30uIFPguGoOLjE=" crossorigin="anonymous"></script>
+  
+  <!-- jw player -->
+  <script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js"></script>
+  <!-- browser polyfills -->
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
+  <style type="text/css">
+  body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }
+  h1,h2,b,i,a,pre,table {
+    margin: 25px;
+  }
+  pre{
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  footer{
+    margin-top: 5em;
+    text-align: center;
+    width: 100vw;
+  }
+  /* flex grid for <a-player> */
+  .flex-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  a-player {
+    flex: 1;
+    margin: 2px;
+  }
+  @media (max-width: 400px) {
+    .flex-grid {
+      display: block;
+    }
+    a-player {
+      margin: 0;
+    }
+  }
+  /* a-player style overrides */
+  .dark .sidebar {
+    background-color: #000;
+    color: white;
+  }
+  .dark .sidebar h3 {
+    color: white;
+  }
+  .dark .searchbox input {
+    color: #000;
+    background-color: white;
+  }
+  .dark .transcript p {
+    color: white;
+  }
+  .dark .transcript span {
+    color: white;
+  }
+  .dark .transcript span.current {
+    background: #ff6600;
+    color: #000;
+  }
+  .dark .transcript span:not(.current):hover {
+    color: #ff6600;
+  }
+  .dark .transcript span em {
+    background: #666;
+    color: white;
+  }
+  .dark .transcript span em.current {
+    background: #ff0046;
+  }
+  .dark .transcript h4 {
+    color: white;
+  }
+
+  .light .transcript span.current {
+    background: #0095D6;
+    color: white;
+  }
+  .light .transcript span:not(.current):hover {
+    color: #0095D6;
+  }
+  .light .searchbox input {
+    border: thin solid gray;
+  }
+  /* search results */
+  .light .transcript span em.current {
+    background: red;
+    color: white;
+  }
+  </style>
+  <title>a-player DEMO</title>
+</head>
+<body>
+  <h1>@edwardsharp/a-player <small>v0.0.18</small></h1>
+  <a href="https://edwardsharp.github.io/a-player"></a>
+  <a href="https://github.com/edwardsharp/a-player">github.com/edwardsharp/a-player</a>
+  <br>
+  <a href="https://www.npmjs.com/package/@edwardsharp/a-player">npmjs.com/package/@edwardsharp/a-player</a>
+  <br>
+  <a href="https://www.webcomponents.org/element/@edwardsharp/a-player">webcomponents.org/element/@edwardsharp/a-player</a>
+
+  <h2>Usage</h2>
+
+  <b>include these:</b>
+
+  <pre>
+  &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js&quot; integrity=&quot;sha256-qyG2LBYZavhW0RXdL7CQGGv2dX4WP30uIFPguGoOLjE=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://content.jwplatform.com/libraries/IDzF9Zmk.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://unpkg.com/@edwardsharp/a-player@0.0.18/dist/main.bundle.js&quot;&gt;&lt;/script&gt;
+  </pre>
+
+  
+
+  <h1>Demo (ie)</h1>
+  <div class="flex-grid light">
+    <a-player 
+      height="501"
+      width="890"
+      file="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+      image="https://i.vimeocdn.com/video/707121198.webp"
+      captions-file="https://edwardsharp.github.io/a-player/How_do_I_answer_and_end_calls.vtt"
+      captions-file-label="English"
+      audio-description-file="https://edwardsharp.github.io/a-player/2696209-How_do_I_answer_and_end_calls-standard-description.mp3"
+    ></a-player>
+  </div>
+  <footer>made with ♥ in NYC</footer>
+  <script src="https://unpkg.com/@edwardsharp/a-player@0.0.18/dist/main.bundle.js"></script>
+</body>
+</html>
