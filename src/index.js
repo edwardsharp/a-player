@@ -303,7 +303,7 @@ class APlayer extends Slim {
 
   toggleTranscriptsBtn(){
     this.showSidebar = !this.showSidebar;
-    this.sidebar.style.display = this.showSidebar ? 'initial' : 'none';
+    this.sidebar.style.display = this.showSidebar ? 'block' : 'none';
     if(this.showSidebar){
       this.indicator.classList.remove('arrow-right');
       this.indicator.classList.add('arrow-down');
