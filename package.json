@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Web Component for rendering videos with accessible captions (& other nifty things) via JWPlayer",
   "main": "index.js",
   "scripts": {

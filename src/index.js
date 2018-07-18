@@ -317,7 +317,10 @@ class APlayer extends Slim {
     }
     this.toggleJWBtnz();
     setTimeout(() => {
-      this.querySelector('[button="toggleTranscripts"]').setAttribute('aria-pressed',this.showSidebar);
+      const tBtn = this.querySelector('[button="toggleTranscripts"]');
+      if(tBtn){
+        tBtn.setAttribute('aria-pressed',this.showSidebar);
+      }
     }, 500);
   }
 
@@ -326,7 +329,11 @@ class APlayer extends Slim {
     this.adToggle = !this.adToggle;
     this.toggleJWBtnz();
     setTimeout(() => {
-      this.querySelector('[button="toggleAudioDescription"]').setAttribute('aria-pressed',this.adToggle);
+      const adBtn = this.querySelector('[button="toggleAudioDescription"]');
+      if(adBtn){
+        adBtn.setAttribute('aria-pressed',this.adToggle);
+      }
+      
     }, 100);
   }
 
