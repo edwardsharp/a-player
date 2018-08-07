@@ -156,7 +156,7 @@ class APlayer extends Slim {
       });
       this.jwplayer.addButton(
         this.transcriptsOff,
-        "Toggle Transcripts",
+        "Transcripts",
         () => {        
           this.toggleTranscriptsBtn();
         },
@@ -165,8 +165,7 @@ class APlayer extends Slim {
       if(this.showTranscripts){
         this.toggleTranscriptsBtn();
       }
-
-
+      this.setTransAria();
     }
 
     // Load chapters / captions
@@ -270,12 +269,14 @@ class APlayer extends Slim {
 
       this.jwplayer.addButton(
         this.adOff,
-        "Toggle Audio Description",
+        "Audio Description",
         () => {        
           this.toggleAudioDescriptionBtn();
         },
         "toggleAudioDescription"
       );
+
+      this.setADAria();
     }
   }
   //end initJwPlayer
@@ -308,18 +309,20 @@ class APlayer extends Slim {
       this.indicator.classList.remove('arrow-right');
       this.indicator.classList.add('arrow-down');
       this.accordion.setAttribute('aria-expanded', true);
-      this.accordion.setAttribute('aria-pressed', true);
     }else{
       this.indicator.classList.remove('arrow-down');
       this.indicator.classList.add('arrow-right');
       this.accordion.setAttribute('aria-expanded', false);
-      this.accordion.setAttribute('aria-pressed', false);
     }
     this.toggleJWBtnz();
+    this.setTransAria();
+  }
+
+  setTransAria(){
     setTimeout(() => {
       const tBtn = this.querySelector('[button="toggleTranscripts"]');
       if(tBtn){
-        tBtn.setAttribute('aria-pressed',this.showSidebar);
+        tBtn.setAttribute('aria-pressed', this.showSidebar);
       }
     }, 500);
   }
@@ -328,38 +331,43 @@ class APlayer extends Slim {
     this.audio.muted = this.adToggle;
     this.adToggle = !this.adToggle;
     this.toggleJWBtnz();
+    this.setADAria();
+  }
+
+  setADAria(){
     setTimeout(() => {
       const adBtn = this.querySelector('[button="toggleAudioDescription"]');
       if(adBtn){
-        adBtn.setAttribute('aria-pressed',this.adToggle);
+        adBtn.setAttribute('aria-pressed', this.adToggle);
       }
       
-    }, 100);
+    }, 200);
   }
-
   toggleJWBtnz(){
     if(this.captionsFile && this.captionsFile != ''){
       this.jwplayer.removeButton('toggleTranscripts');
       this.jwplayer.addButton(
         this.showSidebar ? this.transcriptsOn : this.transcriptsOff,
-        "Toggle Transcripts",
+        "Transcripts",
         () => {        
           this.toggleTranscriptsBtn();
         },
         "toggleTranscripts"
       );
+      this.setTransAria();
     }
 
     if(this.audioDescriptionFile && this.audioDescriptionFile !== ''){
       this.jwplayer.removeButton('toggleAudioDescription');
       this.jwplayer.addButton(
         this.adToggle ? this.adOn : this.adOff,
-        "Toggle Audio Description",
+        "Audio Description",
         () => {        
           this.toggleAudioDescriptionBtn();
         },
         "toggleAudioDescription"
       );
+      this.setADAria();
     }
   }
 
