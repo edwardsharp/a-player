@@ -29,7 +29,8 @@ class APlayer extends Slim {
   adOn = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAACNElEQVRYw+2Yy6raUBSGv63WChW1gvgATsR3aAcd+EB9NB2IcKii4CwTUVCwOhDxEql3qEXP6qA5wUuiUcGm1n+0V9jZ+dflXzt7wxP/CEREPbZ3IuJxI7ddUl63E+RJ8NEJKrcTFLe3Gten+yyy2awcwnDOFrVabS8z1WrVtLvdrmQymR8Ao9HIMoPqwigfLaKUUlbPrebtrvNm240vVvFqtZIbS8h8X9d1ptOpAAwGA+r1+m31X61WbVNoleJSqSTz+dx2/iHht3G5XBYn2bD03inB8XhsfqDRaFxE0KqMPJfWXbvdduxYMpk8qvFSqSTX9sEjDAaDo8USicRFwhqNRnt2MBgEYLlc3kYwn89LPB63VaJTxGKxPXu73QLg8/luI5hOp/fs9Xp9lcAOfer3+xOAQCBwvWo3m404xaFIZrOZnBLXpSI5inOj0RCv9/p/11AohF2rKBaLlrvTZDIBoNVqiaZp17cUp33QCs1mcy9KuVxOzkXPEblz85wQ1DTNXOfl5cV8r1AomONKpSK9Xk9O7sWLxUI2m80f9Xg8hMNhS9UOh0Px+/2ICNFoVHU6HYlEIrs1jK7rpFKpBz5qPvHE/3JB9NiXRm71dJeLsjl+qr9wkBdAlFKvtjuJiPiBL8An4APw8w4HegUEgBVQBr4ppX7Z/c28Az4DX4H3wOudCHqAtTEuA7YEt8B3oABEgOWdCAaBqfHt7akUe4CPBjmvEcF73RFtDZKTwzp0tYp/AzvytxswCV76AAAAAElFTkSuQmCC";
   jwplayer;
   id = parseInt((Math.random() * 1e9)).toString(36);
-  
+  didInitKbdEvent = false;
+
   static get observedAttributes() {
     return [
       'autostart',
@@ -278,6 +279,44 @@ class APlayer extends Slim {
 
       this.setADAria();
     }
+
+    this.jwplayer.on('play', (e) => {
+      setTimeout( () => {
+        const controlsElem = this.querySelectorAll('.jw-controls');
+        if(!this.didInitKbdEvent && controlsElem && controlsElem[0]){
+          this.didInitKbdEvent = true;
+          controlsElem[0].addEventListener('keydown', (e) => {
+            if(e.keyCode === 32 && document.activeElement === e.target){
+              const kbdEvent = new KeyboardEvent('keydown', {
+                code: 'Enter',
+                key: 'Enter',
+                charKode: 13,
+                keyCode: 13,
+                view: window,
+                isTrusted: true
+              });
+              if(this.jwplayer.getState() === 'playing'){
+                this.jwplayer.once('pause', () => {
+                  if (!document.activeElement.className.includes('jw-icon-playback')) {
+                    this.jwplayer.play();
+                    e.target.dispatchEvent(kbdEvent);
+                  }
+                });
+              }else{
+                this.jwplayer.once('play', () => {
+                  if (!document.activeElement.className.includes('jw-icon-playback')) {
+                    if (!document.activeElement.className.includes('jw-icon-rewind')) {
+                      this.jwplayer.pause();
+                    }
+                    e.target.dispatchEvent(kbdEvent);
+                  }
+                });
+              }
+            }
+          });
+        }
+      }, 500);
+    });
   }
   //end initJwPlayer
 
