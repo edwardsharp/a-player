@@ -116,6 +116,8 @@ override some styles, if you want. make sure to include these after `<script typ
 
 ### IE 😔
 
+https://edwardsharp.github.io/a-player/ie.html
+
 ```html
 <!-- ie polyfillz -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js" integrity="sha256-qyG2LBYZavhW0RXdL7CQGGv2dX4WP30uIFPguGoOLjE=" crossorigin="anonymous"></script>	
@@ -144,5 +146,5 @@ b,n){var g,q,r;"keydown"===(a+"").toLowerCase()&&(g="_e_8vj"+(n?"-":"")+a,q=g+b.
 }.call(this);
 /* global define, KeyboardEvent, module */
 </script>
-  ```
+```
 
