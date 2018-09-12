@@ -258,7 +258,9 @@ class APlayer extends Slim {
         this.audio.pause();
       });
       this.jwplayer.on('seek', (e) => {
-        this.audio.currentTime = e.offset;
+        try{
+          this.audio.currentTime = e.offset;
+        }catch(e){ }
         //this.audio.play();
       });
       this.jwplayer.on('mute', (e) => {
@@ -280,13 +282,14 @@ class APlayer extends Slim {
       this.setADAria();
     }
 
-    this.jwplayer.on('play', (e) => {
+    this.jwplayer.on('play', () => {
       setTimeout( () => {
         const controlsElem = this.querySelectorAll('.jw-controls');
         if(!this.didInitKbdEvent && controlsElem && controlsElem[0]){
           this.didInitKbdEvent = true;
           controlsElem[0].addEventListener('keydown', (e) => {
-            if(e.keyCode === 32 && document.activeElement === e.target){
+            const _target = e.target;
+            if(e.keyCode === 32 && document.activeElement === _target){
               const kbdEvent = new KeyboardEvent('keydown', {
                 code: 'Enter',
                 key: 'Enter',
@@ -299,7 +302,7 @@ class APlayer extends Slim {
                 this.jwplayer.once('pause', () => {
                   if (!document.activeElement.className.includes('jw-icon-playback')) {
                     this.jwplayer.play();
-                    e.target.dispatchEvent(kbdEvent);
+                    _target.dispatchEvent(kbdEvent);
                   }
                 });
               }else{
@@ -308,7 +311,7 @@ class APlayer extends Slim {
                     if (!document.activeElement.className.includes('jw-icon-rewind')) {
                       this.jwplayer.pause();
                     }
-                    e.target.dispatchEvent(kbdEvent);
+                    _target.dispatchEvent(kbdEvent);
                   }
                 });
               }
